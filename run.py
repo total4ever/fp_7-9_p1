@@ -4,18 +4,18 @@ from controller.student_ctrl import StudentCtrl
 from domain.val_disciplina import DisciplinaValidator
 from domain.val_grades import GradesValidator
 from domain.val_student import StudentValidator
-from repository.disciplina_repo import DisciplinaRepo
-from repository.grades_repo import GradesRepo
-from repository.student_repo import StudentRepo
+from repository.disciplina_repo import DisciplinaRepoFile
+from repository.grades_repo import GradesRepoFile
+from repository.student_repo import StudentRepoFile
 from ui.console import Console
 
 valStudent = StudentValidator()
 valDisciplina = DisciplinaValidator()
 valGrades = GradesValidator()
 
-repoStudent = StudentRepo()
-repoDisciplina = DisciplinaRepo()
-repoGrade = GradesRepo()
+repoStudent = StudentRepoFile("stud.txt")
+repoDisciplina = DisciplinaRepoFile("disc.txt")
+repoGrade = GradesRepoFile("note.txt")
 
 ctrlStudent = StudentCtrl(valStudent, repoStudent)
 ctrlDisciplina = DisciplinaCtrl(valDisciplina, repoDisciplina)

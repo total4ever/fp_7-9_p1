@@ -7,34 +7,80 @@ class StudentRepo():
     """
 
     def __init__(self):
-        self.__data = {}
+        self.data = {}
 
     def add(self, item):
 
-        if item.getID() in self.__data:
+        if item.getID() in self.data:
             raise ValueError("Student existdent deja")
 
-        self.__data[item.getID()] = item
+        self.data[item.getID()] = item
 
     def remove(self, id):
-        if id in self.__data:
-            del self.__data[id]
+        if id in self.data:
+            del self.data[id]
 
     def find(self, id):
-        if id in self.__data:
-            return self.__data[id]
+        
+        if id in self.data:
+            return self.data[id]
 
         return None
 
     def update(self, item):
-        if item.getID() in self.__data:
-            self.__data[item.getID()] = item
+        if item.getID() in self.data:
+            self.data[item.getID()] = item
         else:
             raise ValueError("Student inexistent")
 
     def getAll(self):
-        return self.__data
+        return self.data
 
+
+class StudentRepoFile(StudentRepo):
+    def __init__(self, fileName):
+        StudentRepo.__init__(self)
+        self.__file = fileName
+
+        try:
+            open(self.__file, "r")
+        except FileNotFoundError:
+            fH = open(self.__file, "w")
+            fH.close()
+        self.__readFromFile()
+
+
+    def __saveToFile(self):
+        f = open(self.__file, "w")
+
+        for e in self.data:
+            x = self.data[e]
+            f.write(str(x.getID()) + "|" + x.getName() + "\n")
+
+        f.close()
+
+
+    def __readFromFile(self):
+
+        self.data = {}
+        with open(self.__file, "r") as fp:
+            for line in fp:
+                args = line.split("|")
+                x = Student(int(args[0]), args[1])
+                self.data[x.getID()] = x
+
+
+    def add(self, item):
+        StudentRepo.add(self, item)
+        self.__saveToFile()
+
+    def remove(self, ID):
+        StudentRepo.remove(self, ID)
+        self.__saveToFile()
+
+    def update(self, item):
+        StudentRepo.update(self, item)
+        self.__saveToFile()
 
 # # TESTS
 
@@ -69,4 +115,4 @@ def tests():
     assert len(repo.getAll()) == 1
 
 
-tests()
+#tests()

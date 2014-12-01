@@ -19,7 +19,7 @@ class GradesCtrl():
         st = self.__studRepo.find(studentID)
         disc = self.__discRepo.find(disciplinaID)
 
-        g = Grades(st, disc, grade)
+        g = Grades(studentID, disciplinaID, grade)
 
         self.__val.validate(g)
         self.__gradeRepo.add(g)

@@ -2,10 +2,10 @@ class GradesValidator():
     def validate(self, gr):
         errors = []
 
-        if gr.getStudent() == None:
+        if gr.getStudentID() == None:
             errors.append("Student invalid")
 
-        if gr.getDisciplina() == None:
+        if gr.getDisciplinaID() == None:
             errors.append("Disciplina invalida")
 
         if gr.getGrade() < 1 or gr.getGrade() > 10:

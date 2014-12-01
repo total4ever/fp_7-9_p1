@@ -139,6 +139,7 @@ class Console():
         # self.__ctrlGrades.add(5, 5, 8.30)
         # self.__ctrlGrades.add(5, 1, 10)
         # self.__ctrlGrades.add(5, 1, 7.60)
+
         while True:
             self.__meniu()
             cmd = self.__cmd()
